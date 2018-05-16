@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        string t;
+        int i;
+        if (s.size() == 1)
+        {
+            return s;
+        }
+        for (i=0 ; i<s.size() ; i++)
+        {
+            t += "#" + s.substr(i,1);
+        }
+        t.push_back('#');//将字符串插入#行成奇数， #b#a#b#a#d#
+        
+        vector<int>len(t.size(),0);//记录以每一个字符为中心的回文字符串长度
+        int id = 0;//回文字符串最长的中心点
+        int right_bound = 0;//回文字符串最长的有边界
+        for ( i = 1 ; i<t.size() ; i++ )
+        {
+            len[i] = right_bound > i ? min(len[2*id - i] , right_bound - i) : 1;// len[i]的下限
+            while (t[i+len[i]] == t[i-len[i]])// 向两边扩展求len[i]的上限
+            {
+                len[i]++;
+            }
+            if ( i+len[i] > right_bound) //更新中心点和最右边界
+            {
+                id = i;
+                right_bound = i+len[i];
+            }
+        }
+        int max_len=0;
+        for (int i=1; i<t.size()-1; i++)//寻找len[i]中的最大值
+        {
+            if(len[i] > max_len)
+            {
+                max_len = len[i];
+                id = i;
+            }
+        }
+        
+        return s.substr((id - (max_len-1))/2, (max_len-1));
+    }
+};
