@@ -1,0 +1,22 @@
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        common = ''
+        length = []
+        err = 0
+        for i in range(len(strs)):
+            length.append(len(strs[i]))
+        key_word = strs[ length.index(min(length)) ]
+        for j in key_word:
+            count = 0
+            for i in range(len(strs)):
+                try:
+                    strs[i].index(j)
+                    count = count + 1
+                    if count == len(strs):
+                        common = common + j
+                except ValueError:
+                    err = 1
+                    break
+            if err == 1:
+                break
+        return common
