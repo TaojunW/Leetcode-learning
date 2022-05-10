@@ -16,3 +16,8 @@ class Solution:
                 position = position + 1
                 common = strs[0][:position]
         return common
+
+
+############ Note ##########
+1. using while is faster than for loop
+2. both the speed and the memory of the code needs to be improved
