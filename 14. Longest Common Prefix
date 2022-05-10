@@ -21,3 +21,20 @@ class Solution:
 ############ Note ##########
 1. using while is faster than for loop
 2. both the speed and the memory of the code needs to be improved
+
+
+########## Better solution #######
+s = min(strs, key=len) # start with the shorest word as key word
+for i in range(0, len(s)): # keep reducing the length of the key word, and then for loop through each letter
+    lst = [word for word in strs if word.startswith(s)] # check matching
+    if len(lst) == len(strs):# break until all the words start with the same substring "s"
+        break
+    else:
+        if(len(s) == 1): # handle the special case, strs = [" ","flo"], contains an empty space, remove this "if part" could decrease both speed and memory usage
+            s = ''
+            break
+        else:
+            s = s[:-1]
+
+return s
+
