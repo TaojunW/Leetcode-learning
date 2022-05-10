@@ -1,0 +1,29 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        output = -1
+        position = 0
+
+        while len(nums) > 0:
+            if len(nums) == 1:
+                if target == nums[0]:
+                    output = 0
+                    break
+                else:
+                    break
+            else:
+                half_length = int(len(nums)/2)
+                if target == nums[half_length]:
+                    output = position + half_length
+                    break
+                elif target < nums[half_length]:
+                    nums = nums[:half_length]
+                else:
+                    position = position + half_length
+                    nums = nums[half_length:]
+        return output
+        
+        ######### Note ########
+        Binary Search
+        1. Dynamically change the "len(nums)" and used as condition for the "while" loop
+        2. Be careful with the special case, "len(nums) == 1"
+        3. Need two variables, one (position) records the current position, and the other (half length) records the updated half-length
