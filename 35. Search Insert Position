@@ -1,0 +1,51 @@
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        left = 0
+        right = len(nums)
+
+        while left < right:
+
+            if nums[right-1] < target:
+                output = right
+                break
+            if nums[left] >= target:
+                output = left
+                break
+
+            mid = left + int((right - left)/2)
+
+            if nums[mid] < target and target <= nums[right-1]:
+                left = mid
+                if right - left == 1:
+                    output = left + 1
+                    break
+
+            elif  nums[left] < target and target <= nums[mid]:
+                right = mid
+                if right - left == 1:
+                    output = left + 1
+                    break
+
+            else:
+                output = mid
+                break
+        return output
+######## Note ##########
+1. too slow, occupy too much space!!
+2. binary search, try to return "middle"
+
+*-------------- Better solution -----------*
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+
+        while left <= right:
+            middle = (left + right) // 2
+
+            if nums[middle] < target:
+                left = middle + 1
+            elif nums[middle] > target:
+                right = middle - 1
+            else:
+                return middle
+        return left
